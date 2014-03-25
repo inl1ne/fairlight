@@ -1,6 +1,15 @@
 *.class
 
+#IDE Files#
+.idea/
+*.iml
+
+#Build directory#
+target/
+
 # Package Files #
 *.jar
 *.war
 *.ear
+
+

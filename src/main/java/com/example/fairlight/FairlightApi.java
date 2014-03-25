@@ -8,6 +8,7 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.DefaultValue;
 import com.google.api.server.spi.config.Named;
 import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.QueryResultIterator;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
 
@@ -32,7 +33,7 @@ public class FairlightApi {
     }
 
     @ApiMethod(httpMethod = ApiMethod.HttpMethod.GET)
-    public List<User> users(@Named("page_size") @DefaultValue("-1") int pageSize,
+    public ListResult users(@Named("page_size") @DefaultValue("-1") int pageSize,
                             @Named("page_token") @DefaultValue("") String pageToken) {
 
         Query<User> query = ofy().load().type(User.class);
@@ -43,7 +44,24 @@ public class FairlightApi {
             query = query.startAt(Cursor.fromWebSafeString(pageToken));
         }
 
-        return query.list();
+        List result = query.list();
+        QueryResultIterator<User> iter = query.iterator();
+
+        boolean more = false;
+        String nextToken = "";
+
+        while(iter.hasNext()){
+            more = true;
+            iter.next();
+        }
+        if (more) {
+            Cursor cursor = iter.getCursor();
+            nextToken = cursor.toWebSafeString();
+        }
+
+
+
+        return new ListResult(result, nextToken);
     }
 
     @ApiMethod(httpMethod = ApiMethod.HttpMethod.POST)
