@@ -9,6 +9,7 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.DefaultValue;
 import com.google.api.server.spi.config.Named;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
 
@@ -30,19 +31,31 @@ public class FairlightApi {
         return new StringResult(String.format("Input String: %s", input));
     }
 
-    @ApiMethod(httpMethod = ApiMethod.HttpMethod.GET)
+    @ApiMethod(httpMethod = ApiMethod.HttpMethod.GET,
+                name = "users.getAll",
+                path = "users")
     public ListResult users(@Named("page_size") @DefaultValue("-1") int pageSize,
                             @Named("page_token") @DefaultValue("") String pageToken) {
 
-        Class clazz = User.class;
-        Query<User> query = ofy().load().type(clazz);
+        Query<User> query = ofy().load().type(User.class);
         return ListResult.fromQuery(query, pageSize, pageToken);
     }
 
-    @ApiMethod(httpMethod = ApiMethod.HttpMethod.POST)
-    public User putUser(@Named("username") String username) {
-        User newUser = new User(username);
+    @ApiMethod(httpMethod = ApiMethod.HttpMethod.GET,
+                name = "users.getSingle",
+                path = "users/{username}")
+    public User getUser(@Named("username") String username) {
+        Key<User> userKey = Key.create(User.class, username);
+        return (User)ofy().load().key(userKey).now();
+    }
+
+    @ApiMethod(httpMethod = ApiMethod.HttpMethod.POST,
+                name = "users.put",
+                path = "users/{username}")
+    public User putUser(@Named("username") String username, @Named("name") String name) {
+        User newUser = new User(username, name);
         ofy().save().entity(newUser).now();
         return newUser;
     }
+
 }

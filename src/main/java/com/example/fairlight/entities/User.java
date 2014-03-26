@@ -8,17 +8,27 @@ import com.googlecode.objectify.annotation.Id;
  */
 @Entity
 public class User {
-    private
     @Id
-    String username;
+    private String username;
+    private String name;
 
     public User() {}
 
-    public User(String username) {
+    public User(String username, String name) {
         this.username = username;
+        this.name = name;
     }
 
     public String getUsername() {
         return username;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
