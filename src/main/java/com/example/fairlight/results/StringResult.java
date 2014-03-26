@@ -1,4 +1,4 @@
-package com.example.fairlight;
+package com.example.fairlight.results;
 
 /**
  * Created by ilewis on 2/11/14.
