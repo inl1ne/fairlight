@@ -1,5 +1,6 @@
 package com.example.fairlight;
 
+import com.example.fairlight.entities.UserList;
 import com.example.fairlight.entities.Task;
 import com.example.fairlight.entities.TaskList;
 import com.example.fairlight.entities.User;
@@ -49,13 +50,20 @@ public class FairlightApi {
         return (User)ofy().load().key(userKey).now();
     }
 
-    @ApiMethod(httpMethod = ApiMethod.HttpMethod.POST,
+    @ApiMethod(httpMethod = ApiMethod.HttpMethod.PUT,
                 name = "users.put",
                 path = "users/{username}")
-    public User putUser(@Named("username") String username, @Named("name") String name) {
-        User newUser = new User(username, name);
-        ofy().save().entity(newUser).now();
-        return newUser;
+    public User putUser(User user) {
+        ofy().save().entity(user).now();
+        return user;
     }
 
+    @ApiMethod(httpMethod = ApiMethod.HttpMethod.POST,
+            name = "users.post",
+            path = "users")
+    public void addUsers(UserList users) {
+        for (User user : users.users) {
+            putUser(user);
+        }
+    }
 }
