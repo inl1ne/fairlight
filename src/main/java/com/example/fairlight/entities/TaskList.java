@@ -13,6 +13,7 @@ import java.util.List;
  */
 @Entity
 public class TaskList {
+
     @Parent Key<Task> parent;
     @Id Long id;
 
