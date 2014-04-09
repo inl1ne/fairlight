@@ -1,4 +1,4 @@
-package com.example.fairlight.results;
+package com.github.inl1ne.fairlight.results;
 
 /**
  * Created by ilewis on 2/11/14.

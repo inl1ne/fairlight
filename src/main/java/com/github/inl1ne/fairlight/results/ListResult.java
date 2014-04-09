@@ -1,6 +1,6 @@
-package com.example.fairlight.results;
+package com.github.inl1ne.fairlight.results;
 
-import com.example.fairlight.entities.User;
+import com.github.inl1ne.fairlight.entities.User;
 import com.google.api.server.spi.config.AnnotationBoolean;
 import com.google.api.server.spi.config.ApiResourceProperty;
 import com.google.appengine.api.datastore.Cursor;

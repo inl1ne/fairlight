@@ -1,6 +1,5 @@
-package com.example.fairlight.entities;
+package com.github.inl1ne.fairlight.entities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,11 +1,11 @@
-package com.example.fairlight;
+package com.github.inl1ne.fairlight;
 
-import com.example.fairlight.entities.UserList;
-import com.example.fairlight.entities.Task;
-import com.example.fairlight.entities.TaskList;
-import com.example.fairlight.entities.User;
-import com.example.fairlight.results.ListResult;
-import com.example.fairlight.results.StringResult;
+import com.github.inl1ne.fairlight.entities.UserList;
+import com.github.inl1ne.fairlight.entities.Task;
+import com.github.inl1ne.fairlight.entities.TaskList;
+import com.github.inl1ne.fairlight.entities.User;
+import com.github.inl1ne.fairlight.results.ListResult;
+import com.github.inl1ne.fairlight.results.StringResult;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.DefaultValue;

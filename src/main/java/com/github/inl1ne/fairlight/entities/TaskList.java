@@ -1,4 +1,4 @@
-package com.example.fairlight.entities;
+package com.github.inl1ne.fairlight.entities;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
