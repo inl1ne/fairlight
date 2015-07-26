@@ -15,12 +15,20 @@ import java.util.List;
 @InjectCrud(ApiClass = FairlightApi.class, EntityPath = "task")
 public class Task {
     @Id Long id;
+
     String name;
+    String description;
+    List<String> tags;
 
+    // Time estimation
+    float estimate;
+    float remaining;
 
+    //
     Ref<User> owner;
     List<Ref<User>> collaborators;
 
+    // Dependencies
     Ref<TaskList> predecessors;
     Ref<TaskList> subtasks;
 }
