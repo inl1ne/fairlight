@@ -14,12 +14,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+from google.appengine.api import users
 import webapp2
+from models.submission import Submission
+import restapp
 
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.write('Hello world!')
+app = restapp.RestApp('/api/v1', debug=True)
 
-app = webapp2.WSGIApplication([
-    ('/', MainHandler)
-], debug=True)
+
+@app.route('/auth')
+def auth_callback(request, *args, **kwargs):
+    return webapp2.Response('AUUUUUUTH!!!!')
+
+
+@app.entity()
+class Submissions(restapp.RestHandler):
+    def __init__(self, *args, **kwargs):
+        super(Submissions, self).__init__("submissions", Submission, app.make_abs_path("submissions"), *args, **kwargs)
+
+
+
+
+    def add(self):
+        submission = Submission(
+            contents=self.request.body,
+            mime_type=self.request.content_type,
+            submitted_by=users.get_current_user()
+        )
+        key = submission.put()
+        return webapp2.Response(key.urlsafe())
+
+
